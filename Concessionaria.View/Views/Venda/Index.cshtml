@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Concessionaria.Model.Models.Venda>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdVenda)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClienteIdCliente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VeiculoIdVeiculo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataVenda)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdVenda)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClienteIdCliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VeiculoIdVeiculo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataVenda)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {  id=item.IdVenda }) |
+                @Html.ActionLink("Details", "Details", new {  id=item.IdVenda }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.IdVenda })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
