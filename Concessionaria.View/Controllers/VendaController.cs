@@ -1,5 +1,6 @@
 ﻿using Concessionaria.Model.Models;
 using Concessionaria.Model.Repositories;
+using Concessionaria.View.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -17,9 +18,9 @@ namespace Concessionaria.View.Controllers
             repositoryCliente = new RepositoryCliente();
             repositoryVeiculo = new RepositoryVeiculo();
         }
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var listaVendas = await repositoryVenda.SelecionarTodosAsync();
+            var listaVendas = VendaVM.ListarTodasVendas();
             return View(listaVendas);
         }
 
@@ -61,25 +62,25 @@ namespace Concessionaria.View.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Details(int id)
+        public IActionResult Details(int id)
         {
-            var detalhes = await repositoryVenda.SelecionarPkAsync(id);
+            var detalhes = VendaVM.SelecionarVenda(id);
 
             return View(detalhes);
         }
 
         [HttpGet]
-        public async Task<IActionResult> Delete(int id)
+        public IActionResult Delete(int id)
         {
-            var detalhes = await repositoryVenda.SelecionarPkAsync(id);
+            var detalhes = VendaVM.SelecionarVenda(id);
 
             return View(detalhes);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(Venda venda)
+        public async Task<IActionResult> Delete(VendaVM venda)
         {
-            var oVenda = await repositoryVenda.SelecionarPkAsync(venda.IdVenda);
+            var oVenda = await repositoryVenda.SelecionarPkAsync(venda.Codigo);
             await repositoryVenda.ExcluirAsync(oVenda);
             return RedirectToAction("Index");
         }
